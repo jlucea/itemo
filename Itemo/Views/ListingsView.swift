@@ -11,21 +11,30 @@ struct ListingsView: View {
     
     @StateObject var viewModel = ListingsViewModel()
     
+    private let gridColumns = Array(repeating: GridItem(.flexible(minimum: 100)), count: 2)
+
     var body: some View {
-        
-        NavigationStack {
-            List(viewModel.listings) { listing in
-                ListingRowView(listing: listing)
+        ScrollView {
+            LazyVGrid(columns: gridColumns, spacing: 30) {
+                ForEach (viewModel.listings, id: \.id) { ad in
+                    ListingItemView(ad: ad)
+                }
             }
-            .navigationTitle("Listings")
-            .task {
-                await viewModel.loadData()
-            }
+        }
+        .padding(10)
+        .navigationTitle("Listings")
+        .task {
+            await viewModel.loadData()
         }
     }
 
 }
 
+
 #Preview {
+    ListingsView()
+}
+
+#Preview("Mock Data") {
     ListingsView(viewModel: .init(service: MockListingsService()))
 }
