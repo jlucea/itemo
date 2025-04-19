@@ -6,11 +6,27 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		6F3005FE2DB240F80041C136 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6F33C2EB2DB1961C009D9689 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F33C2F22DB1961C009D9689;
+			remoteInfo = Itemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		6F3005FA2DB240F80041C136 /* ItemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ItemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F33C2F32DB1961C009D9689 /* Itemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Itemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		6F3005FB2DB240F80041C136 /* ItemoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ItemoTests;
+			sourceTree = "<group>";
+		};
 		6F33C2F52DB1961C009D9689 /* Itemo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Itemo;
@@ -19,6 +35,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6F3005F72DB240F80041C136 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6F33C2F02DB1961C009D9689 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				6F33C2F52DB1961C009D9689 /* Itemo */,
+				6F3005FB2DB240F80041C136 /* ItemoTests */,
 				6F33C2F42DB1961C009D9689 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				6F33C2F32DB1961C009D9689 /* Itemo.app */,
+				6F3005FA2DB240F80041C136 /* ItemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +73,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6F3005F92DB240F80041C136 /* ItemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F3006002DB240F80041C136 /* Build configuration list for PBXNativeTarget "ItemoTests" */;
+			buildPhases = (
+				6F3005F62DB240F80041C136 /* Sources */,
+				6F3005F72DB240F80041C136 /* Frameworks */,
+				6F3005F82DB240F80041C136 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6F3005FF2DB240F80041C136 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6F3005FB2DB240F80041C136 /* ItemoTests */,
+			);
+			name = ItemoTests;
+			packageProductDependencies = (
+			);
+			productName = ItemoTests;
+			productReference = 6F3005FA2DB240F80041C136 /* ItemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6F33C2F22DB1961C009D9689 /* Itemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F33C2FE2DB1961D009D9689 /* Build configuration list for PBXNativeTarget "Itemo" */;
@@ -80,6 +128,10 @@
 				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
+					6F3005F92DB240F80041C136 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 6F33C2F22DB1961C009D9689;
+					};
 					6F33C2F22DB1961C009D9689 = {
 						CreatedOnToolsVersion = 16.3;
 					};
@@ -100,11 +152,19 @@
 			projectRoot = "";
 			targets = (
 				6F33C2F22DB1961C009D9689 /* Itemo */,
+				6F3005F92DB240F80041C136 /* ItemoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6F3005F82DB240F80041C136 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6F33C2F12DB1961C009D9689 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +175,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6F3005F62DB240F80041C136 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6F33C2EF2DB1961C009D9689 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,7 +191,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6F3005FF2DB240F80041C136 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F33C2F22DB1961C009D9689 /* Itemo */;
+			targetProxy = 6F3005FE2DB240F80041C136 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		6F3006012DB240F80041C136 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 548ZQR4ZZN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.jlucea.ItemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Itemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Itemo";
+			};
+			name = Debug;
+		};
+		6F3006022DB240F80041C136 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 548ZQR4ZZN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.jlucea.ItemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Itemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Itemo";
+			};
+			name = Release;
+		};
 		6F33C2FC2DB1961D009D9689 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -256,6 +367,7 @@
 				DEVELOPMENT_TEAM = 548ZQR4ZZN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Itemo;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +396,7 @@
 				DEVELOPMENT_TEAM = 548ZQR4ZZN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Itemo;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -305,6 +418,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6F3006002DB240F80041C136 /* Build configuration list for PBXNativeTarget "ItemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F3006012DB240F80041C136 /* Debug */,
+				6F3006022DB240F80041C136 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6F33C2EE2DB1961C009D9689 /* Build configuration list for PBXProject "Itemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

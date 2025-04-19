@@ -11,7 +11,7 @@ import SwiftUI
 struct ItemoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ListingsView()
         }
     }
 }
