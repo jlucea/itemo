@@ -14,22 +14,28 @@ struct ListingsView: View {
     private let gridColumns = Array(repeating: GridItem(.flexible(minimum: 100)), count: 2)
 
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: gridColumns, spacing: 30) {
-                ForEach (viewModel.listings, id: \.id) { ad in
-                    ListingItemView(ad: ad)
+        NavigationStack {
+            ScrollView {
+                LazyVGrid(columns: gridColumns, spacing: 30) {
+                    ForEach (viewModel.listings, id: \.id) { ad in
+                        NavigationLink(
+                            destination: ClassifiedAdDetailView(ad: ad),
+                            label: {
+                                ListingItemView(ad: ad)
+                            })
+                        .buttonStyle(.plain)
+                    }
                 }
             }
-        }
-        .padding(10)
-        .navigationTitle("Listings")
-        .task {
-            await viewModel.loadData()
+            .padding(10)
+            .navigationTitle("Listings")
+            .task {
+                await viewModel.loadData()
+            }
         }
     }
 
 }
-
 
 #Preview {
     ListingsView()
