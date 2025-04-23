@@ -11,6 +11,8 @@ struct ClassifiedAdDetailView: View {
     
     @State var ad: ClassifiedAd
     
+    @EnvironmentObject var categoriesVM: CategoriesViewModel
+    
     var body: some View {
         ScrollView {
             VStack (alignment: .leading) {
@@ -44,6 +46,11 @@ struct ClassifiedAdDetailView: View {
                         .fontWeight(.semibold)
                     Text(ad.title)
                         .font(.title2)
+                    
+                    Text(categoriesVM.categories[ad.categoryId] ?? "")
+                        .font(.body)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.purple)
                     
                     Divider().padding(.vertical, 12)
                     
@@ -91,5 +98,8 @@ struct ClassifiedAdDetailView: View {
         fatalError("Failed to decode ad: \(error)")
     }
     
+    let mockCategories: [Int:String] = [5:"Toys, games & collectibles"]
+    
     return ClassifiedAdDetailView(ad: ad)
+                .environmentObject(CategoriesViewModel(categories: mockCategories))
 }
