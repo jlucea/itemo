@@ -1,13 +1,9 @@
-//
-//  ListingRowView.swift
-//  Itemo
-//
-//  Created by Jaime Lucea on 18/4/25.
-//
 
 import SwiftUI
 
 struct ListingItemView: View {
+    
+    @EnvironmentObject var categoriesVM: CategoriesViewModel
     
     let ad: ClassifiedAd
     
@@ -44,6 +40,11 @@ struct ListingItemView: View {
                 
                 Text(ad.title)
                     .font(.body)
+                                    
+                Text(categoriesVM.categories[ad.categoryId] ?? "")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.purple)
             }
             .padding(.leading, 5)
             
@@ -52,6 +53,8 @@ struct ListingItemView: View {
         
     }
 }
+
+//MARK: - Preview
 
 #Preview {
     
@@ -69,6 +72,9 @@ struct ListingItemView: View {
         siret: "123 456 789"
     )
     
+    let mockCategories: [Int:String] = [4:"Random"]
+    
     ListingItemView(ad: mock)
         .frame(width: 200, height: 400)
+        .environmentObject(CategoriesViewModel(categories: mockCategories))
 }

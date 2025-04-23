@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct ItemoApp: App {
+    
+    @StateObject private var categoriesVM = CategoriesViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ListingsView()
+                .environmentObject(categoriesVM)
         }
     }
 }
