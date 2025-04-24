@@ -19,11 +19,13 @@ struct ListingsView: View {
                 LazyVGrid(columns: gridColumns, spacing: 30) {
                     ForEach (viewModel.listings, id: \.id) { ad in
                         NavigationLink(
-                            destination: ClassifiedAdDetailView(ad: ad),
+                            destination:
+                                ClassifiedAdDetailView(ad: ad),
                             label: {
                                 ListingItemView(ad: ad)
                             })
                         .buttonStyle(.plain)
+                        .navigationBarTitleDisplayMode(.inline)
                     }
                 }
             }
