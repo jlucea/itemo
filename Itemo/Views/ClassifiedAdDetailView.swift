@@ -17,27 +17,36 @@ struct ClassifiedAdDetailView: View {
         ScrollView {
             VStack (alignment: .leading) {
                 
-                //MARK: Item image(s)
-                AsyncImage(url: URL(string: ad.imagesURL.thumb ?? "")) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                    case .failure(_):
-                        Image(systemName: "photo.artframe")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 180, height: 80)
-                            .clipped()
-                    @unknown default:
-                        EmptyView()
+                ZStack(alignment: .topTrailing) {
+                    //MARK: Item image(s)
+                    AsyncImage(url: URL(string: ad.imagesURL.thumb ?? "")) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                        case .failure(_):
+                            Image(systemName: "photo.artframe")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 180, height: 80)
+                                .clipped()
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                    .frame(height: 380, alignment: .top)
+                    .frame(maxWidth: .infinity)
+                    .scaledToFit()
+                    .aspectRatio(contentMode: .fill)
+                    
+                    if ad.isUrgent {
+                        UrgentBadge()
+                            .frame(width: 86, height: 24)
+                            .padding(12)
                     }
                 }
-                .frame(height: 380)
-                .frame(maxWidth: .infinity)
-                .aspectRatio(contentMode: .fill)
                 
                 //MARK: Item description
                 VStack(alignment: .leading, spacing: 12) {
@@ -82,7 +91,7 @@ struct ClassifiedAdDetailView: View {
          "thumb":"https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-thumb/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg"
       },
       "creation_date":"2019-11-05T15:55:08+0000",
-      "is_urgent":false
+      "is_urgent":true
     }
     """.data(using: .utf8)!
 
