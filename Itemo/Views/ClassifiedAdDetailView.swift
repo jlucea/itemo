@@ -10,30 +10,25 @@ struct ClassifiedAdDetailView: View {
     var body: some View {
         ScrollView {
             VStack (alignment: .leading) {
-                
                 ZStack(alignment: .topTrailing) {
-                    //MARK: Item image(s)
+                    //MARK: Item image
                     AsyncImage(url: URL(string: ad.imagesURL.thumb ?? "")) { phase in
                         switch phase {
                         case .empty:
-                            ProgressView()
+                            Color.gray.opacity(0.1)
+                                .overlay(ProgressView())    // Show loading progress
                         case .success(let image):
                             image
                                 .resizable()
-                        case .failure(_):
-                            Image(systemName: "photo.artframe")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 180, height: 80)
-                                .clipped()
+                                .scaledToFill()
+                        case .failure:
+                            Color.gray.opacity(0.1)
+                                .overlay(Image(systemName: "photo"))
                         @unknown default:
                             EmptyView()
                         }
                     }
-                    .frame(height: 380, alignment: .top)
-                    .frame(maxWidth: .infinity)
-                    .scaledToFit()
-                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 320)
                     
                     if ad.isUrgent {
                         UrgentBadge()
@@ -45,25 +40,24 @@ struct ClassifiedAdDetailView: View {
                 //MARK: Item description
                 VStack(alignment: .leading, spacing: 12) {
                     Text("\(ad.price) €")
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                        .font(.customTitle)
+
                     Text(ad.title)
-                        .font(.title2)
+                        .font(.customTitle)
                     
                     Text(categoriesVM.categories[ad.categoryId] ?? "")
-                        .font(.body)
+                        .font(.customCaption)
                         .fontWeight(.semibold)
                         .foregroundStyle(.purple)
                     
                     Divider().padding(.vertical, 12)
                     
                     Text(ad.description)
-                        .font(.body)
+                        .font(.customBody)
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 12)
-                
-                Spacer()
+                .padding(.top, 18)
+                .frame(maxWidth: .infinity)
             }
         }
     }
@@ -84,7 +78,7 @@ struct ClassifiedAdDetailView: View {
         isUrgent: true,
         imagesURL: ImagesURL(
             small: "https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-small/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg",
-            thumb: "https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-small/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg"),
+            thumb: "https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-thumb/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg"),
         price: 75, siret: nil)
     
     return ClassifiedAdDetailView(ad: ad)

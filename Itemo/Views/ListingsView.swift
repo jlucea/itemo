@@ -7,7 +7,7 @@ struct ListingsView: View {
     @StateObject var viewModel = ListingsViewModel()
 
     // This adaptive layout configures grid items to have a flexible width.
-    private let adaptiveLayout: [GridItem] = Array(repeating: .init(.adaptive(minimum: 200, maximum: 400)), count: 2)
+    private let adaptiveLayout: [GridItem] = Array(repeating: .init(.adaptive(minimum: 120, maximum: 400)), count: 2)
     
     //MARK: Body
     var body: some View {
@@ -22,7 +22,7 @@ struct ListingsView: View {
                             label: {
                                 // ListingItemView displays the individual ad in the grid.
                                 ListingItemView(ad: ad)
-                                    .frame(height: 320)
+                                    .frame(height: 380)
                             })
                         .buttonStyle(.plain)
                         .navigationBarTitleDisplayMode(.inline)
