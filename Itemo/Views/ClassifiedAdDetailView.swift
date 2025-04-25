@@ -1,9 +1,3 @@
-//
-//  ClassifiedAdDetailView.swift
-//  Itemo
-//
-//  Created by Jaime Lucea on 19/4/25.
-//
 
 import SwiftUI
 
@@ -15,31 +9,25 @@ struct ClassifiedAdDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack (alignment: .leading) {
-                
+            VStack (alignment: .center) {
                 ZStack(alignment: .topTrailing) {
-                    //MARK: Item image(s)
+                    //MARK: Item image
                     AsyncImage(url: URL(string: ad.imagesURL.thumb ?? "")) { phase in
                         switch phase {
                         case .empty:
-                            ProgressView()
+                            Color.gray.opacity(0.1)
+                                .overlay(ProgressView())    // Show loading progress
                         case .success(let image):
                             image
                                 .resizable()
-                        case .failure(_):
-                            Image(systemName: "photo.artframe")
-                                .resizable()
                                 .scaledToFit()
-                                .frame(width: 180, height: 80)
-                                .clipped()
+                        case .failure:
+                            Color.gray.opacity(0.1)
+                                .overlay(Image(systemName: "photo"))
                         @unknown default:
                             EmptyView()
                         }
                     }
-                    .frame(height: 380, alignment: .top)
-                    .frame(maxWidth: .infinity)
-                    .scaledToFit()
-                    .aspectRatio(contentMode: .fill)
                     
                     if ad.isUrgent {
                         UrgentBadge()
@@ -47,29 +35,29 @@ struct ClassifiedAdDetailView: View {
                             .padding(12)
                     }
                 }
-                
+                .frame(height: UIScreen.main.bounds.height * 0.4)
+
                 //MARK: Item description
                 VStack(alignment: .leading, spacing: 12) {
                     Text("\(ad.price) €")
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                        .font(.customTitle)
+
                     Text(ad.title)
-                        .font(.title2)
+                        .font(.customTitle)
                     
                     Text(categoriesVM.categories[ad.categoryId] ?? "")
-                        .font(.body)
+                        .font(.customCaption)
                         .fontWeight(.semibold)
                         .foregroundStyle(.purple)
                     
                     Divider().padding(.vertical, 12)
                     
                     Text(ad.description)
-                        .font(.body)
+                        .font(.customBody)
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 12)
-                
-                Spacer()
+                .padding(.top, 18)
+                .frame(maxWidth: .infinity)
             }
         }
     }
@@ -79,35 +67,19 @@ struct ClassifiedAdDetailView: View {
 
 #Preview {
     
-    let json = """
-    {
-      "id":1701863171,
-      "category_id":5,
-      "title":"Faucon Millenium Star Wars Lego",
-      "description":"Faucon Millenium Star Wars Lego (7965) Quasiment complet (manque juste 2 pièces au niveau de la cabine) Fourni avec tous les personnages + 5 personnages supplémentaires qui ne font pas partie initialement de la boite Fourni avec la notice complète en 2 parties Fourni sans la boite d’origine A venir chercher à Paris 17 (ce que nous privilégions) Livraison possible (frais d’envoi à prévoir en plus)",
-      "price":75.00,
-      "images_url":{
-         "small":"https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-small/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg",
-         "thumb":"https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-thumb/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg"
-      },
-      "creation_date":"2019-11-05T15:55:08+0000",
-      "is_urgent":true
-    }
-    """.data(using: .utf8)!
-
-    let decoder = JSONDecoder()
-    decoder.keyDecodingStrategy = .useDefaultKeys
-    decoder.dateDecodingStrategy = .iso8601
-
-    let ad: ClassifiedAd
-    do {
-        ad = try decoder.decode(ClassifiedAd.self, from: json)
-        print("Decoded ad: \(ad)")
-    } catch {
-        fatalError("Failed to decode ad: \(error)")
-    }
+    let mockCategories: [Int:String] = [4:"Toys, games & collectibles"]
     
-    let mockCategories: [Int:String] = [5:"Toys, games & collectibles"]
+    let ad = ClassifiedAd(
+        id: 19,
+        title: "Faucon Millenium Star Wars Lego",
+        categoryId: 4,
+        creationDate: "2022-03-01T10:00:00+0000",
+        description: "Faucon Millenium Star Wars Lego (7965) Quasiment complet (manque juste 2 pièces au niveau de la cabine) Fourni avec tous les personnages + 5 personnages supplémentaires qui ne font pas partie initialement de la boite Fourni avec la notice complète en 2 parties Fourni sans la boite d’origine A venir chercher à Paris 17 (ce que nous privilégions) Livraison possible (frais d’envoi à prévoir en plus)",
+        isUrgent: true,
+        imagesURL: ImagesURL(
+            small: "https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-small/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg",
+            thumb: "https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-thumb/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg"),
+        price: 75, siret: nil)
     
     return ClassifiedAdDetailView(ad: ad)
                 .environmentObject(CategoriesViewModel(categories: mockCategories))

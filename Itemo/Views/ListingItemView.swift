@@ -1,88 +1,92 @@
 
 import SwiftUI
 
+/// A view that displays a single classified ad with its image, price, title, and category.
 struct ListingItemView: View {
-    
-    @EnvironmentObject var categoriesVM: CategoriesViewModel
     
     let ad: ClassifiedAd
     
+    @EnvironmentObject var categoriesVM: CategoriesViewModel  // View model to fetch categories
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            
-            ZStack(alignment: .topTrailing) {
+        VStack(alignment: .leading, spacing: 10) {
                 
-                // MARK: Image
+            //MARK: Image
+            ZStack(alignment: .topTrailing) {
                 AsyncImage(url: URL(string: ad.imagesURL.thumb ?? "")) { phase in
                     switch phase {
                     case .empty:
-                        ProgressView()
+                        Color.gray.opacity(0.1)
+                            .overlay(ProgressView())    // Show loading progress
                     case .success(let image):
                         image
                             .resizable()
-                    case .failure(_):
-                        Image(systemName: "photo.artframe")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 180, height: 80)
+                            .scaledToFit()     // Ensures the image fills the space
                             .clipped()
+                    case .failure:
+                        ZStack {
+                            Color.clear
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundStyle(.gray)
+                                .frame(width: 80, height: 80)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     @unknown default:
                         EmptyView()
                     }
                 }
-                .frame(height: 300)
-                .aspectRatio(contentMode: .fit)
-                .cornerRadius(15)
+                .cornerRadius(12)
+                .frame(height: 140, alignment: .center)
                 
+                //MARK: Urgent Badge
                 if ad.isUrgent {
                     UrgentBadge()
                         .frame(width: 86, height: 24)
                         .padding(8)
                 }
             }
-                        
-            // MARK: Price and description
+
+            // MARK: Description
             VStack(alignment: .leading, spacing: 6)  {
-                Text(ad.price.description + " €")
-                    .font(.title2)
+                Text("\(ad.price) €")
+                    .font(.customTitle)
                 
                 Text(ad.title)
-                    .font(.body)
+                    .font(.customBody)
+                    .lineLimit(3)
                                     
                 Text(categoriesVM.categories[ad.categoryId] ?? "")
-                    .font(.caption)
-                    .fontWeight(.bold)
+                    .font(.customCaption)
                     .foregroundStyle(.purple)
             }
-            .padding(.leading, 5)
-            
-            Spacer()
+            .padding(.horizontal, 8)
+            .frame(height: 140, alignment: .topLeading)
         }
-        
     }
+    
 }
 
 //MARK: - Preview
 
 #Preview {
+    let mockCategories: [Int:String] = [5:"Toys, games & collectibles"]
     
     let mock = ClassifiedAd(
         id: 19,
-        title: "Test",
-        categoryId: 4,
+        title: "Faucon Millenium Star Wars Lego",
+        categoryId: 5,
         creationDate: "2022-03-01T10:00:00+0000",
-        description: "Test description",
+        description: "Faucon Millenium Star Wars Lego (7965) Quasiment complet (manque juste 2 pièces au niveau de la cabine) Fourni avec tous les personnages + 5 personnages supplémentaires qui ne font pas partie initialement de la boite Fourni avec la notice complète en 2 parties Fourni sans la boite d’origine A venir chercher à Paris 17 (ce que nous privilégions) Livraison possible (frais d’envoi à prévoir en plus)",
         isUrgent: true,
         imagesURL: ImagesURL(
-            small: "https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-small/0fef594d0cf8689fd6f511ed6d3ce365f6707af4.jpg",
-            thumb: "https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-thumb/0fef594d0cf8689fd6f511ed6d3ce365f6707af4.jpg"),
-        price: 70,
-        siret: "123 456 789"
-    )
-    
-    let mockCategories: [Int:String] = [4:"Random"]
-    
+            small: "https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-small/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg",
+            thumb: "https://raw.githubusercontent.com/leboncoin/paperclip/master/ad-thumb/0fbc79bc13bac33cf47a7610a3732498e964c009.jpg"),
+        price: 75, siret: nil)
+        
     ListingItemView(ad: mock)
-        .frame(width: 200, height: 400)
         .environmentObject(CategoriesViewModel(categories: mockCategories))
+        .frame(width: 200, height: 400)
+        .padding(.horizontal, 100)
 }
