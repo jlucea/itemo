@@ -50,7 +50,7 @@ struct ListingItemView: View {
 
             // MARK: Description
             VStack(alignment: .leading, spacing: 6)  {
-                Text(ad.price.description + " €")
+                Text("\(ad.price) €")
                     .font(.customTitle)
                 
                 Text(ad.title)
