@@ -9,7 +9,7 @@ struct ClassifiedAdDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack (alignment: .leading) {
+            VStack (alignment: .center) {
                 ZStack(alignment: .topTrailing) {
                     //MARK: Item image
                     AsyncImage(url: URL(string: ad.imagesURL.thumb ?? "")) { phase in
@@ -20,7 +20,7 @@ struct ClassifiedAdDetailView: View {
                         case .success(let image):
                             image
                                 .resizable()
-                                .scaledToFill()
+                                .scaledToFit()
                         case .failure:
                             Color.gray.opacity(0.1)
                                 .overlay(Image(systemName: "photo"))
@@ -28,7 +28,6 @@ struct ClassifiedAdDetailView: View {
                             EmptyView()
                         }
                     }
-                    .frame(height: 320)
                     
                     if ad.isUrgent {
                         UrgentBadge()
@@ -36,7 +35,8 @@ struct ClassifiedAdDetailView: View {
                             .padding(12)
                     }
                 }
-                
+                .frame(height: UIScreen.main.bounds.height * 0.4)
+
                 //MARK: Item description
                 VStack(alignment: .leading, spacing: 12) {
                     Text("\(ad.price) €")
