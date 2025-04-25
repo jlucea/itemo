@@ -13,28 +13,32 @@ struct ListingItemView: View {
                 
             //MARK: Image
             ZStack(alignment: .topTrailing) {
-                GeometryReader { imageContainer in
-                    AsyncImage(url: URL(string: ad.imagesURL.thumb ?? "")) { phase in
-                        switch phase {
-                        case .empty:
-                            Color.gray.opacity(0.1)
-                                .overlay(ProgressView())    // Show loading progress
-                        case .success(let image):
-                            image
+                AsyncImage(url: URL(string: ad.imagesURL.thumb ?? "")) { phase in
+                    switch phase {
+                    case .empty:
+                        Color.gray.opacity(0.1)
+                            .overlay(ProgressView())    // Show loading progress
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()     // Ensures the image fills the space
+                            .clipped()
+                    case .failure:
+                        ZStack {
+                            Color.clear
+                            Image(systemName: "photo")
                                 .resizable()
-                                .scaledToFill()     // Ensures the image fills the space
-                                .frame(width: imageContainer.size.width, height: imageContainer.size.height)
-                                .clipped()
-                        case .failure:
-                            Color.gray.opacity(0.1)
-                                .overlay(Image(systemName: "photo"))
-                        @unknown default:
-                            EmptyView()
+                                .scaledToFit()
+                                .foregroundStyle(.gray)
+                                .frame(width: 80, height: 80)
                         }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    @unknown default:
+                        EmptyView()
                     }
-                    .cornerRadius(12)
                 }
-                .frame(height: 250)
+                .cornerRadius(12)
+                .frame(height: 140, alignment: .center)
                 
                 //MARK: Urgent Badge
                 if ad.isUrgent {
@@ -43,6 +47,7 @@ struct ListingItemView: View {
                         .padding(8)
                 }
             }
+
             // MARK: Description
             VStack(alignment: .leading, spacing: 6)  {
                 Text(ad.price.description + " €")
@@ -57,7 +62,7 @@ struct ListingItemView: View {
                     .foregroundStyle(.purple)
             }
             .padding(.horizontal, 8)
-            .frame(height: 130, alignment: .topLeading)
+            .frame(height: 140, alignment: .topLeading)
         }
     }
     
@@ -82,6 +87,6 @@ struct ListingItemView: View {
         
     ListingItemView(ad: mock)
         .environmentObject(CategoriesViewModel(categories: mockCategories))
-        .frame(height: 400)
+        .frame(width: 200, height: 400)
         .padding(.horizontal, 100)
 }

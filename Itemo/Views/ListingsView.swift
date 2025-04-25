@@ -13,7 +13,7 @@ struct ListingsView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVGrid(columns: adaptiveLayout, spacing: 30) {     // Vertical spacing
+                LazyVGrid(columns: adaptiveLayout, spacing: 10) {     // Vertical spacing
                     ForEach (viewModel.listings, id: \.id) { ad in
                         NavigationLink(
                             // When a listing is tapped, navigate to the ad details page.
@@ -22,7 +22,7 @@ struct ListingsView: View {
                             label: {
                                 // ListingItemView displays the individual ad in the grid.
                                 ListingItemView(ad: ad)
-                                    .frame(height: 380)
+                                    .frame(height: 300)
                             })
                         .buttonStyle(.plain)
                         .navigationBarTitleDisplayMode(.inline)
