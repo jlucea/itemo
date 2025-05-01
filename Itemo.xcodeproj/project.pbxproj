@@ -21,9 +21,30 @@
 		6F33C2F32DB1961C009D9689 /* Itemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Itemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6F31DEC92DC3B80900BDCBBD /* Exceptions for "ItemoTests" folder in "Itemo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MockServices/MockListingsService.swift,
+			);
+			target = 6F33C2F22DB1961C009D9689 /* Itemo */;
+		};
+		6F31DECA2DC3B80900BDCBBD /* Exceptions for "ItemoTests" folder in "ItemoTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MockServices/MockListingsService.swift,
+			);
+			target = 6F3005F92DB240F80041C136 /* ItemoTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6F3005FB2DB240F80041C136 /* ItemoTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6F31DEC92DC3B80900BDCBBD /* Exceptions for "ItemoTests" folder in "Itemo" target */,
+				6F31DECA2DC3B80900BDCBBD /* Exceptions for "ItemoTests" folder in "ItemoTests" target */,
+			);
 			path = ItemoTests;
 			sourceTree = "<group>";
 		};

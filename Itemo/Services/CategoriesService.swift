@@ -2,7 +2,7 @@
 import Foundation
 import OSLog
 
-class CategoriesService {
+class CategoriesService: CategoriesServiceProtocol {
     
     private let client: HTTPClient = .shared
     private let categoriesEndpoint = "https://raw.githubusercontent.com/leboncoin/paperclip/master/categories.json"
