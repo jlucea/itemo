@@ -1,11 +1,15 @@
 
 import Foundation
 
-/// A repository responsible for loading product categories from cache or network.
+/// A repository responsible for loading product categories from cache or service
 class CategoriesRepository {
     
-    private let service = CategoriesService()
+    private let service: CategoriesServiceProtocol
     private let cacheKey = "CachedCategories"
+    
+    init(service: CategoriesServiceProtocol = CategoriesService()) {
+        self.service = service
+    }
 
     /// Loads categories from cache if available; otherwise fetches from network.
     func loadCategories() async throws -> [Int:String] {
@@ -28,7 +32,7 @@ class CategoriesRepository {
     }
 
     /// Attempts to retrieve cached categories from UserDefaults.
-    private func loadCachedCategories() -> [Int:String]? {
+    func loadCachedCategories() -> [Int:String]? {
         guard let data = UserDefaults.standard.data(forKey: cacheKey),
               let decoded = try? JSONDecoder().decode([Int:String].self, from: data) else {
             return nil
@@ -37,9 +41,14 @@ class CategoriesRepository {
     }
 
     /// Saves categories to UserDefaults for caching.
-    private func cache(_ categories: [Int:String]) {
+    func cache(_ categories: [Int:String]) {
         if let data = try? JSONEncoder().encode(categories) {
             UserDefaults.standard.set(data, forKey: cacheKey)
         }
     }
+    
+    func clearCache() {
+        UserDefaults.standard.removeObject(forKey: cacheKey)
+    }
+    
 }
